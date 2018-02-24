@@ -2,12 +2,13 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#include <hash_map.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <ext/hash_map>
 
 using namespace std;
+
 class board;
 void bomb(char *why);
 
@@ -93,7 +94,8 @@ struct __episode
 
 	__episode() { a = 0; r = 0.0000; state = 0; };
 	__episode(const struct __episode &cpy) { state = cpy.state; a = cpy.a; r = cpy.r; };
-	__episode& __episode::operator=(const struct __episode &p);
+	//__episode& __episode::operator=(const struct __episode &p);
+	__episode& operator=(const struct __episode &p);
 
 	unsigned long state;
 	int a; //action indexed by state
@@ -347,8 +349,8 @@ board::board(int x, int y)
 
 //probability of selecting given action
 
-typedef hash_map<unsigned long ,actionValue *, hash<unsigned long> > hash_value;
-typedef	hash_map<unsigned long ,actionPi *, hash<unsigned long> > hash_pi;
+typedef __gnu_cxx::hash_map<unsigned long ,actionValue *, hash<unsigned long> > hash_value;
+typedef	__gnu_cxx::hash_map<unsigned long ,actionPi *, hash<unsigned long> > hash_pi;
 
 
 class learningAgent
